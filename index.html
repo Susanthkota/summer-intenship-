@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>SmartAgri — Smart Agriculture Production Optimization</title>
+<style>
+:root{--bg:#f4f9f1;--surf:#fff;--ink:#14281a;--mute:#52665a;--line:#d9e6d4;--g1:#1f7a3d;--g2:#2e9e57;--soft:#e4f3e1;--acc:#e9a21a;--bad:#c0392b;--hero:linear-gradient(135deg,#0f4d28,#1f7a3d 60%,#4aa85f);box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0d1610;--surf:#15231a;--ink:#e8f2e6;--mute:#9db3a1;--line:#27382b;--g1:#4ac36f;--g2:#6bd68a;--soft:#1b3022;--hero:linear-gradient(135deg,#07210f,#0f4d28 60%,#1f7a3d)}}
+:root[data-theme="dark"]{--bg:#0d1610;--surf:#15231a;--ink:#e8f2e6;--mute:#9db3a1;--line:#27382b;--g1:#4ac36f;--g2:#6bd68a;--soft:#1b3022;--hero:linear-gradient(135deg,#07210f,#0f4d28 60%,#1f7a3d)}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.65 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+.wrap{max-width:1100px;margin:0 auto;padding:0 18px}
+header.top{background:var(--hero);color:#fff;position:sticky;top:env(safe-area-inset-top,0px);z-index:20;box-shadow:0 2px 14px #0003}
+.bar{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 0}
+.brand{display:flex;align-items:center;gap:10px;cursor:pointer;font-weight:800;font-size:20px;line-height:1.1}.brand small{display:block;font-weight:500;font-size:11px;opacity:.8;letter-spacing:1px}
+.brand span{font-size:30px}
+nav{display:flex;gap:4px;overflow-x:auto;padding-bottom:8px;scrollbar-width:none}nav::-webkit-scrollbar{display:none}
+nav button{flex:none;background:none;border:0;color:#fff;padding:8px 13px;border-radius:9px;font:600 14px inherit;font-family:inherit;cursor:pointer;opacity:.85;white-space:nowrap}
+nav button:hover{background:#ffffff1f;opacity:1}nav button.on{background:#fff;color:#14532d;opacity:1}
+#tg{background:#ffffff26;border:0;color:#fff;border-radius:8px;padding:7px 11px;cursor:pointer;font-size:16px}
+.strip{background:var(--soft);text-align:center;padding:8px;font-size:14px;font-weight:600;color:var(--g1)}
+.pg{display:none;padding:44px 0 60px;animation:f .35s}.pg.on{display:block}@keyframes f{from{opacity:0;transform:translateY(8px)}to{opacity:1}}
+h1.t{font-size:clamp(28px,5vw,44px);margin:0 0 6px;line-height:1.15}.lead{color:var(--mute);max-width:680px;margin:0 0 26px;font-size:17px}
+h2{margin:34px 0 14px;font-size:24px}h3{margin:0 0 6px;font-size:18px}
+.hero{background:var(--hero);color:#fff;border-radius:22px;padding:54px 34px;margin-bottom:26px;position:relative;overflow:hidden}
+.hero h1{font-size:clamp(30px,5.5vw,52px);margin:0 0 12px;line-height:1.1}.hero p{font-size:18px;max-width:600px;opacity:.94;margin:0 0 22px}
+.hero:after{content:"🌾";position:absolute;right:20px;bottom:-20px;font-size:190px;opacity:.14}
+.quote{border-left:4px solid var(--acc);padding-left:14px;font-style:italic;max-width:560px;opacity:.95}
+.btn{display:inline-block;padding:12px 22px;border-radius:10px;font-weight:700;border:0;cursor:pointer;font-size:15px;background:var(--acc);color:#2b1d00;text-decoration:none;font-family:inherit}
+.btn.g{background:var(--g1);color:#fff}.btn.o{background:none;border:2px solid #fff9;color:#fff;margin-left:8px}
+.grid{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(250px,1fr))}.g3{grid-template-columns:repeat(auto-fit,minmax(200px,1fr))}
+.card{background:var(--surf);border:1px solid var(--line);border-radius:16px;padding:22px;transition:.2s}
+.card.l{cursor:pointer}.card.l:hover{transform:translateY(-3px);box-shadow:0 10px 26px #0000001c;border-color:var(--g1)}
+.ic{width:46px;height:46px;border-radius:12px;background:var(--soft);display:grid;place-items:center;font-size:24px;margin-bottom:12px}
+.card p{margin:0;color:var(--mute);font-size:15px}.go{display:inline-block;margin-top:10px;color:var(--g1);font-weight:700;font-size:14px}
+.stat{text-align:center}.stat b{display:block;font-size:34px;color:var(--g1)}.stat span{color:var(--mute);font-size:14px}
+.call{background:var(--soft);border-left:4px solid var(--acc);padding:14px 16px;border-radius:10px;margin:0 0 22px;font-size:15px}
+ul.ck{list-style:none;padding:0;margin:10px 0 0}ul.ck li{padding:5px 0 5px 26px;position:relative;font-size:15px;color:var(--mute)}ul.ck li:before{content:"✓";position:absolute;left:0;color:var(--g1);font-weight:800}
+.tool{display:grid;grid-template-columns:1fr 1fr;gap:20px}@media(max-width:820px){.tool{grid-template-columns:1fr}.hero{padding:36px 22px}}
+.fields{display:grid;grid-template-columns:1fr 1fr;gap:14px}.fields .w{grid-column:1/-1}
+label{font-size:13px;font-weight:700;color:var(--mute);display:block;margin-bottom:3px}label output{float:right;color:var(--g1)}
+input[type=range]{width:100%;accent-color:var(--g1)}
+select,input[type=number],input[type=text],textarea{width:100%;padding:10px;border-radius:8px;border:1px solid var(--line);background:var(--bg);color:var(--ink);font:inherit;font-size:15px}
+.out h3{margin-bottom:14px}.kv{display:flex;justify-content:space-between;padding:9px 0;border-bottom:1px dashed var(--line);gap:10px}.kv b{color:var(--g1);text-align:right}
+.big{font-size:36px;font-weight:800;color:var(--g1);line-height:1.1}.big small{font-size:15px;color:var(--mute);font-weight:600}
+.bw{margin:0 0 14px}.bw .t{display:flex;justify-content:space-between;font-weight:700}.bw .b{height:10px;background:var(--soft);border-radius:9px;margin-top:5px;overflow:hidden}.bw i{display:block;height:100%;background:linear-gradient(90deg,var(--g1),var(--g2));border-radius:9px;transition:width .5s}
+.tip{background:var(--soft);border-left:4px solid var(--acc);padding:11px 14px;border-radius:8px;font-size:14px;margin-top:12px}
+.note{font-size:12.5px;color:var(--mute);margin-top:12px}
+.pill{display:inline-block;padding:3px 11px;border-radius:99px;font-size:12.5px;font-weight:700;background:var(--soft);color:var(--g1)}.pill.x{background:#fde8e5;color:var(--bad)}
+.ops{display:grid;grid-template-columns:1fr 1fr;gap:10px}.op{border:1px solid var(--line);border-radius:12px;padding:12px;text-align:center;font-weight:700}.op small{display:block;font-weight:500;color:var(--mute)}
+.steps{display:flex;gap:12px;flex-wrap:wrap;counter-reset:s;margin-bottom:8px}.steps div{flex:1 1 150px;background:var(--surf);border:1px solid var(--line);border-radius:14px;padding:16px;position:relative}.steps div:before{counter-increment:s;content:counter(s);background:var(--g1);color:#fff;width:26px;height:26px;border-radius:50%;display:grid;place-items:center;font-weight:800;font-size:13px;margin-bottom:8px}
+.steps b{display:block}.steps small{color:var(--mute)}
+.ph{display:flex;gap:14px;align-items:center;text-decoration:none;color:inherit}.ph .n{flex:none;width:40px;height:40px;border-radius:10px;background:var(--g1);color:#fff;display:grid;place-items:center;font-weight:800}.ph small{color:var(--mute)}
+.stack{display:flex;flex-wrap:wrap;gap:10px}.stack span{background:var(--surf);border:1px solid var(--line);padding:8px 15px;border-radius:99px;font-weight:600;font-size:14px}
+svg text{fill:var(--mute);font-size:11px}.ok{display:none;margin-top:14px}
+footer{background:#0b2a15;color:#cfe5d2;padding:34px 0;text-align:center;font-size:14px}footer a{color:#fff;font-weight:700}footer p{margin:5px 0}
+</style>
+</head>
+<body>
+<header class="top"><div class="wrap">
+ <div class="bar"><div class="brand" data-go="home"><span>🌾</span><div>SmartAgri<small>PRODUCTION OPTIMIZATION PORTAL</small></div></div><button id="tg" aria-label="Toggle theme">🌓</button></div>
+ <nav id="nav"></nav>
+</div></header>
+<div class="strip">“Right Crop · Right Input · Right Time” — Grow More, Waste Less 🌱</div>
+
+<main class="wrap">
+<!-- HOME -->
+<section class="pg on" id="home">
+ <div class="hero"><h1>Welcome to SmartAgri</h1><p>Smart Agriculture Production Optimization — turning soil, weather and field data into clear decisions on crop, water, fertilizer and yield.</p>
+  <div class="quote">“To plant a garden is to believe in tomorrow.”<br>— Audrey Hepburn</div><br>
+  <button class="btn" data-go="crop">Try Crop Advisor</button><a class="btn o" href="https://github.com/Susanthkota/SMART-AGRICULTIRE-PRODUCTION-OPTIMIZATION" target="_blank" rel="noopener">GitHub Repo</a></div>
+ <h2 style="text-align:center">Together We Grow 🌿</h2>
+ <div class="grid g3"><div class="card stat"><b>9</b><span>Crops supported</span></div><div class="card stat"><b>7</b><span>Field inputs analysed</span></div><div class="card stat"><b>4</b><span>Smart calculators</span></div><div class="card stat"><b>6</b><span>Step optimization cycle</span></div></div>
+ <h2>Explore the portal</h2><div class="grid" id="hcards"></div>
+</section>
+
+<!-- CROP -->
+<section class="pg" id="crop"><h1 class="t">🌾 Crop Recommendation</h1><p class="lead">Describe your field. The advisor ranks crops by how closely your soil and climate match each crop's typical growing profile.</p>
+ <div class="tool"><div class="card"><div class="fields" id="cf"></div><p class="note">Rule-based version using typical crop requirements. The full system uses trained machine-learning models.</p></div><div class="card out" id="co"></div></div></section>
+
+<!-- IRRIGATION -->
+<section class="pg" id="irr"><h1 class="t">💧 Irrigation Planner</h1><p class="lead">Estimate this week's water need and how often to irrigate, after counting the rain you expect.</p>
+ <div class="tool"><div class="card"><div class="fields" id="if"></div></div><div class="card out" id="io"></div></div></section>
+
+<!-- FERT -->
+<section class="pg" id="fert"><h1 class="t">🧪 Fertilizer Advisor</h1><p class="lead">Compare your soil nutrients with what the crop needs and get a balanced fertilizer quantity.</p>
+ <div class="tool"><div class="card"><div class="fields" id="ff"></div></div><div class="card out" id="fo"></div></div></section>
+
+<!-- YIELD -->
+<section class="pg" id="yld"><h1 class="t">📈 Yield Prediction</h1><p class="lead">Estimate expected production before sowing, so costs, storage and sales can be planned.</p>
+ <div class="tool"><div class="card"><div class="fields" id="yf"></div></div><div class="card out" id="yo"></div></div></section>
+
+<!-- WEATHER -->
+<section class="pg" id="wx"><h1 class="t">⛅ Weather Insights</h1><p class="lead">Enter today's forecast to see which field operations are safe, and use the season guide to plan crops.</p>
+ <div class="tool"><div class="card"><div class="fields" id="wf"></div></div><div class="card out" id="wo"></div></div>
+ <h2>Season guide</h2><div class="grid" id="seas"></div></section>
+
+<!-- MARKET -->
+<section class="pg" id="mkt"><h1 class="t">🏷️ Market Prices</h1><p class="lead">See a 12-month price pattern and the best month to sell, then estimate your income.</p>
+ <div class="tool"><div class="card"><div class="fields" id="mf"></div><p class="note">Sample indicative data for demonstration. The full system connects to live market sources (e.g. Agmarknet).</p></div><div class="card out" id="mo"></div></div></section>
+
+<!-- TIPS -->
+<section class="pg" id="tips"><h1 class="t">💡 Smart Farming Tips</h1><p class="lead">Practical guidelines for every stage of the crop cycle. Good habits protect yield, money and soil.</p>
+ <div class="call">🎯 <b>Remember:</b> Small, consistent improvements — better soil, smarter water use, timely action — add up to big gains every season.</div>
+ <div class="grid" id="tg2"></div></section>
+
+<!-- QUERY -->
+<section class="pg" id="qry"><h1 class="t">📝 Ask an Expert</h1><p class="lead">Have a farming question or feedback? Share it below. Name and contact are optional.</p>
+ <div class="card" style="max-width:720px"><form id="qf" onsubmit="return false"><div class="fields">
+  <div><label>Full Name (optional)</label><input type="text" id="qn"></div><div><label>Contact Number (optional)</label><input type="text" id="qc"></div>
+  <div><label>Topic</label><select id="qt"><option>Crop selection</option><option>Irrigation</option><option>Fertilizer</option><option>Pests &amp; disease</option><option>Market &amp; prices</option><option>Other</option></select></div><div><label>Village / District (optional)</label><input type="text" id="ql"></div>
+  <div class="w"><label>Your question</label><textarea id="qm" rows="4"></textarea></div></div><br>
+  <button class="btn g" id="qb">Submit Query</button>
+  <div class="tip ok" id="qok">✅ Thank you! This demo page does not send or store anything. In the full system, queries go to the support team.</div></form></div></section>
+
+<!-- ABOUT -->
+<section class="pg" id="about"><h1 class="t">ℹ️ About SmartAgri</h1><p class="lead">Our mission, values and the full project journey.</p>
+ <div class="hero" style="padding:34px"><h1 style="font-size:30px">🌱 Empowering Every Farmer</h1><p style="margin:0">SmartAgri is a decision-support portal that brings crop planning, input management and production forecasting into one simple, low-cost platform that works on any phone.</p></div>
+ <div class="grid"><div class="card"><div class="ic">🎯</div><h3>Our Mission</h3><p>To help farmers produce more with fewer resources through accessible, data-driven guidance.</p></div><div class="card"><div class="ic">👁️</div><h3>Our Vision</h3><p>Profitable, sustainable farming for every farmer, in every village.</p></div><div class="card"><div class="ic">💪</div><h3>Our Impact</h3><p>Better decisions, saved water and fertilizer, and improved income.</p></div></div>
+ <h2>Core values</h2><div class="grid g3" id="vals"></div>
+ <h2>Continuous optimization cycle</h2><div class="steps" id="cyc"></div>
+ <h2>Project phases (GitHub)</h2><div class="grid" id="phs"></div>
+ <h2>Technology stack</h2><div class="stack"><span>HTML5</span><span>CSS3</span><span>JavaScript</span><span>Python</span><span>Flask</span><span>scikit-learn</span><span>Pandas &amp; NumPy</span><span>Chart.js</span><span>Git &amp; GitHub</span></div>
+</section>
+</main>
+
+<footer><div class="wrap"><p><b>🌾 SmartAgri — Smart Agriculture Production Optimization</b></p>
+ <p>Share SmartAgri with every farmer you know.</p>
+ <p><a href="https://github.com/Susanthkota/SMART-AGRICULTIRE-PRODUCTION-OPTIMIZATION" target="_blank" rel="noopener">View project on GitHub</a></p>
+ <p style="opacity:.7;font-size:12.5px">Recommendations are advisory and based on typical values. Confirm with your local agriculture officer.</p></div></footer>
+
+<script>
+const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
+const PAGES=[["home","🏠","Home"],["crop","🌾","Crop Advisor"],["irr","💧","Irrigation"],["fert","🧪","Fertilizer"],["yld","📈","Yield"],["wx","⛅","Weather"],["mkt","🏷️","Market"],["tips","💡","Tips"],["qry","📝","Ask Expert"],["about","ℹ️","About"]];
+$("#nav").innerHTML=PAGES.map(p=>`<button data-go="${p[0]}">${p[1]} ${p[2]}</button>`).join("");
+function go(id){if(!$("#"+id))id="home";$$(".pg").forEach(e=>e.classList.toggle("on",e.id==id));$$("#nav button").forEach(b=>b.classList.toggle("on",b.dataset.go==id));window.scrollTo({top:0});try{history.replaceState(null,"","#"+id)}catch(e){}}
+document.addEventListener("click",e=>{const t=e.target.closest("[data-go]");if(t)go(t.dataset.go)});
+$("#tg").onclick=()=>{const d=document.documentElement,a=d.getAttribute("data-theme"),dark=a?a=="dark":matchMedia("(prefers-color-scheme:dark)").matches;d.setAttribute("data-theme",dark?"light":"dark")};
+
+// crop data: emoji, profile[N,P,K,pH,T,H,R], water mm/season, days, yield t/ha, price Rs/qtl (sample), NPK kg/ha
+const C={Rice:["🌾",[80,48,40,6.4,24,82,236],1200,120,4,2300,[120,60,40]],Wheat:["🌿",[100,50,40,6.8,18,60,75],450,120,3.5,2400,[120,60,40]],Maize:["🌽",[78,48,20,6.2,22,65,85],500,100,3.5,2100,[120,60,40]],Cotton:["☁️",[118,46,20,6.9,24,80,80],700,170,1.8,7000,[120,60,60]],Chickpea:["🫘",[40,68,80,7.3,19,17,80],300,100,1.1,5600,[20,50,20]],Lentil:["🫛",[19,68,19,6.5,25,64,46],300,110,1,6500,[20,40,20]],Banana:["🍌",[100,82,50,6,27,80,105],1800,330,35,1800,[200,60,300]],Mango:["🥭",[20,27,30,5.8,31,50,95],900,365,9,4000,[100,50,100]],Sugarcane:["🎋",[120,50,50,7,27,75,150],1800,365,80,350,[250,80,120]]};
+const names=Object.keys(C),cOpts=names.map(n=>[n,C[n][0]+" "+n]);
+const R=(id,l,a,b,v,s=1,w)=>({id,l,t:"r",a,b,v,s,w}),S=(id,l,o,w)=>({id,l,t:"s",o,w}),Nn=(id,l,v,w)=>({id,l,t:"n",v,w});
+function tool(fid,oid,fields,fn){
+ const el=$("#"+fid);
+ el.innerHTML=fields.map(f=>`<div class="${f.w?"w":""}"><label>${f.l}${f.t=="r"?` <output id="${fid}_${f.id}_o">${f.v}</output>`:""}</label>${
+  f.t=="r"?`<input type="range" id="${fid}_${f.id}" min="${f.a}" max="${f.b}" value="${f.v}" step="${f.s}">`:
+  f.t=="s"?`<select id="${fid}_${f.id}">${f.o.map(o=>Array.isArray(o)?`<option value="${o[0]}">${o[1]}</option>`:`<option>${o}</option>`).join("")}</select>`:
+  `<input type="number" id="${fid}_${f.id}" value="${f.v}" min="0.1" step="0.1">`}</div>`).join("");
+ const run=()=>{const v={};fields.forEach(f=>{const e=$(`#${fid}_${f.id}`);v[f.id]=f.t=="s"?e.value:+e.value;if(f.t=="r")$(`#${fid}_${f.id}_o`).textContent=e.value});$("#"+oid).innerHTML=fn(v)};
+ el.addEventListener("input",run);run();return run;
+}
+const kv=(a,b)=>`<div class="kv"><span>${a}</span><b>${b}</b></div>`,fmt=n=>Math.round(n).toLocaleString("en-IN");
+const tipbox=t=>`<div class="tip">💡 ${t}</div>`;
+
+// 1 CROP
+const sc=[140,145,205,3.5,36,86,280],wt=[1,1,1,1.6,1.6,1.2,1.4];
+tool("cf","co",[R("N","Nitrogen (N)",0,140,60),R("P","Phosphorus (P)",5,145,50),R("K","Potassium (K)",5,205,40),R("ph","Soil pH",3.5,9.5,6.5,.1),R("t","Temperature °C",8,44,25),R("h","Humidity %",14,100,65),R("r","Rainfall mm",20,300,100,1,1)],v=>{
+ const x=[v.N,v.P,v.K,v.ph,v.t,v.h,v.r];
+ const r=names.map(n=>{let d=0,w=0;C[n][1].forEach((p,i)=>{d+=wt[i]*Math.abs(p-x[i])/sc[i];w+=wt[i]});return[n,Math.max(0,Math.round(100*(1-1.6*d/w)))]}).sort((a,b)=>b[1]-a[1]).slice(0,3);
+ let t=[];t.push(v.r<60?"Low rainfall: plan regular irrigation.":v.r>200?"High rainfall: ensure drainage.":"Moderate rainfall: irrigate by soil moisture.");
+ if(v.ph<5.5)t.push("Soil is acidic: consider liming.");if(v.ph>7.8)t.push("Soil is alkaline: add gypsum or organic matter.");if(v.N<30)t.push("Nitrogen is low: add compost or nitrogen fertilizer.");
+ return `<h3>Recommended crops</h3>`+r.map(([n,s],i)=>`<div class="bw"><div class="t"><span>${i?"":"🏆 "}${C[n][0]} ${n}</span><span>${s}% match</span></div><div class="b"><i style="width:${s}%"></i></div></div>`).join("")+tipbox(t.join(" "));
+});
+
+// 2 IRRIGATION
+tool("if","io",[S("c","Crop",cOpts,1),S("s","Soil type",[["1.2","Sandy"],["1","Loam"],["0.85","Clay"]]),Nn("a","Area (acres)",2),R("rn","Expected rain this week (mm)",0,150,10,1,1)],v=>{
+ const c=C[v.c],need=c[2]/c[3]*7*v.s,eff=v.rn*.7,net=Math.max(0,need-eff),L=net*v.a*4046.86,depth=v.c=="Rice"?50:40,n=Math.ceil(net/depth),gap=n?Math.max(1,Math.floor(7/n)):0;
+ return `<h3>Weekly water plan</h3><div class="big">${fmt(net)} <small>mm net need</small></div>`+kv("Crop water need / week",need.toFixed(0)+" mm")+kv("Useful rain counted (70%)",eff.toFixed(0)+" mm")+kv("Total water for your area",fmt(L)+" litres")+kv("Irrigations this week",n?n+" (every ~"+gap+" days)":"None needed")+(net?tipbox("Irrigate early morning or evening to reduce evaporation. Check soil moisture before each round."):tipbox("Expected rain covers this week's need. Skip irrigation and check drainage."));
+});
+
+// 3 FERT
+tool("ff","fo",[S("c","Crop",cOpts,1),Nn("a","Area (acres)",2),R("N","Soil Nitrogen (kg/ha)",0,200,50),R("P","Soil Phosphorus (kg/ha)",0,150,25),R("K","Soil Potassium (kg/ha)",0,400,120)],v=>{
+ const d=C[v.c][6],g=[0,1,2].map(i=>Math.max(0,d[i]-.5*[v.N,v.P,v.K][i])),ha=v.a*.4047;
+ const dap=g[1]/.46,urea=Math.max(0,g[0]-dap*.18)/.46,mop=g[2]/.6,st=i=>{const r=[v.N,v.P,v.K][i]*.5/d[i];return r>=1?'<span class="pill">Sufficient</span>':r>=.5?'<span class="pill">Medium</span>':'<span class="pill x">Low</span>'};
+ return `<h3>Fertilizer plan (${v.a} acres)</h3>`+kv("Nitrogen status",st(0))+kv("Phosphorus status",st(1))+kv("Potassium status",st(2))+kv("Urea",fmt(urea*ha)+" kg")+kv("DAP",fmt(dap*ha)+" kg")+kv("Muriate of Potash (MOP)",fmt(mop*ha)+" kg")+tipbox("Split nitrogen into 2–3 doses. Apply based on a soil test and local advice, and avoid over-application.");
+});
+
+// 4 YIELD
+tool("yf","yo",[S("c","Crop",cOpts,1),Nn("a","Area (acres)",2),S("sq","Soil quality",[["0.75","Poor"],["1","Average"],["1.2","Good"]]),S("w","Water availability",[["0.8","Rainfed only"],["1","Partial irrigation"],["1.1","Full irrigation"]]),S("f","Fertilizer use",[["0.85","Low"],["1","Recommended"],["1.08","Balanced + organic"]])],v=>{
+ const c=C[v.c],ha=v.a*.4047,t=c[4]*ha*v.sq*v.w*v.f,inc=t*10*c[5];
+ return `<h3>Expected production</h3><div class="big">${t.toFixed(1)} <small>tonnes</small></div>`+kv("Per acre",(t/v.a).toFixed(2)+" t")+kv("Typical yield (benchmark)",c[4]+" t/ha")+kv("Likely range",(t*.85).toFixed(1)+" – "+(t*1.15).toFixed(1)+" t")+kv("Sample income estimate","₹ "+fmt(inc))+tipbox("Estimate uses typical national yields and simple adjustment factors. Actual yield depends on variety, pests and weather.");
+});
+
+// 5 WEATHER
+tool("wf","wo",[R("t","Temperature °C",5,46,28),R("rc","Chance of rain %",0,100,30),R("wd","Wind speed km/h",0,50,8)],v=>{
+ const o=[["🧴 Spraying",v.wd<15&&v.rc<30,"Calm and dry needed"],["🌱 Sowing",v.rc>=20&&v.rc<=70&&v.t>=15&&v.t<=36,"Mild temp, some moisture"],["🚜 Harvesting",v.rc<20,"Dry weather preferred"],["💧 Irrigation",v.rc<40,"Skip if rain likely"]];
+ return `<h3>Field operations today</h3><div class="ops">`+o.map(([n,k,h])=>`<div class="op">${n}<small>${h}</small><span class="pill ${k?"":"x"}">${k?"Good to go":"Avoid / wait"}</span></div>`).join("")+`</div>`+(v.t>38?tipbox("Heat stress risk: irrigate in the evening and avoid midday work."):v.t<10?tipbox("Cold risk: protect young plants from frost."):tipbox("Conditions are manageable. Re-check the forecast before major operations."));
+});
+$("#seas").innerHTML=[["☔","Kharif (Jun–Oct)","Monsoon crops: rice, maize, cotton, sugarcane. Needs good drainage and weed control."],["❄️","Rabi (Oct–Mar)","Winter crops: wheat, chickpea, lentil. Needs timely sowing and 2–4 irrigations."],["☀️","Zaid (Mar–Jun)","Summer crops: vegetables, melons, fodder. Needs assured irrigation and heat protection."]].map(([i,t,d])=>`<div class="card"><div class="ic">${i}</div><h3>${t}</h3><p>${d}</p></div>`).join("");
+
+// 6 MARKET
+tool("mf","mo",[S("c","Crop",cOpts,1),Nn("q","Quantity to sell (tonnes)",5)],v=>{
+ const p=C[v.c][5],m="JFMAMJJASOND".split(""),ph=C[v.c][4]>0?names.indexOf(v.c)*.7:0,vals=m.map((_,i)=>p*(1+.13*Math.sin((i-2)/12*6.283+ph)+.02*i/11)),mx=Math.max(...vals),mn=Math.min(...vals),bi=vals.indexOf(mx),H=140;
+ const pts=vals.map((x,i)=>[28+i*26,H-10-(x-mn)/(mx-mn||1)*(H-40)]);
+ const svg=`<svg viewBox="0 0 340 ${H+20}" width="100%"><polyline fill="none" stroke="var(--g1)" stroke-width="3" points="${pts.map(q=>q.join(",")).join(" ")}"/>${pts.map((q,i)=>`<circle cx="${q[0]}" cy="${q[1]}" r="${i==bi?6:3}" fill="${i==bi?"var(--acc)":"var(--g1)"}"/><text x="${q[0]}" y="${H+14}" text-anchor="middle">${m[i]}</text>`).join("")}</svg>`;
+ return `<h3>${C[v.c][0]} ${v.c} — price pattern</h3>${svg}`+kv("Average price (sample)","₹ "+fmt(p)+" / quintal")+kv("Best month to sell",["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"][bi]+" (₹ "+fmt(mx)+")")+kv("Income at best price","₹ "+fmt(v.q*10*mx))+kv("Income at lowest price","₹ "+fmt(v.q*10*mn))+tipbox("Storing produce until a higher-price month can raise income, if storage cost and spoilage are low.");
+});
+
+// 7 TIPS
+$("#tg2").innerHTML=[["🌱","Soil Health",["Test soil every 1–2 years","Add compost or farmyard manure","Rotate crops each season","Avoid burning crop residue","Use green manure crops","Keep soil covered with mulch"]],["💧","Water Management",["Irrigate early morning or evening","Use drip or sprinkler where possible","Level fields to avoid waterlogging","Harvest rainwater in farm ponds","Match watering to crop stage","Check soil moisture before irrigating"]],["🧪","Fertilizer Use",["Apply by soil-test results","Split nitrogen into several doses","Balance N, P and K together","Mix organic and chemical sources","Place fertilizer near roots","Store bags dry and away from children"]],["🐛","Pest & Disease",["Scout fields every week","Use resistant varieties","Remove infected plants early","Use traps and neem-based sprays","Spray only in calm weather","Follow label dose and safety gear"]],["🌾","Seed & Sowing",["Use certified, treated seed","Choose varieties for your region","Sow at the recommended time","Maintain correct spacing","Check seed germination first","Keep seed dry before sowing"]],["🚜","Harvest & Storage",["Harvest at right maturity","Avoid harvesting in rain","Dry grain to safe moisture","Clean and dry storage bags","Protect from rats and insects","Sell using price trends"]]].map(([i,t,l])=>`<div class="card"><div class="ic">${i}</div><h3>${t}</h3><ul class="ck">${l.map(x=>`<li>${x}</li>`).join("")}</ul></div>`).join("");
+
+// QUERY
+$("#qb").onclick=()=>{$("#qok").style.display="block"};
+
+// ABOUT + HOME
+$("#vals").innerHTML=[["📊","Data-Driven","Every recommendation is based on field data."],["📱","Always Accessible","Works on any phone, no installation."],["🌍","Sustainable","Protects soil, water and the environment."],["🤝","Farmer First","Simple language and visual results."],["🔒","Privacy","Your farm data stays yours."],["🧭","Practical","Clear actions, not just numbers."]].map(([i,t,d])=>`<div class="card"><div class="ic">${i}</div><h3>${t}</h3><p>${d}</p></div>`).join("");
+$("#cyc").innerHTML=[["Sense","Enter soil, weather and field data"],["Analyse","Models process the data"],["Recommend","Crop, water and fertilizer plan"],["Act","Apply the plan in the field"],["Monitor","Track growth and conditions"],["Improve","Learn from results"]].map(([a,b])=>`<div><b>${a}</b><small>${b}</small></div>`).join("");
+const repo="https://github.com/Susanthkota/SMART-AGRICULTIRE-PRODUCTION-OPTIMIZATION/tree/main/";
+$("#phs").innerHTML=[["1. Brainstorming & Ideation","Idea, problem and goals"],["2. Requirement Analysis","What the system must do"],["3.Project Design Phase","Architecture and design"],["4. Project Planning Phase","Schedule and tasks"],["5. Project Development Phase","Building the solution"],["6.Project Testing","Checking quality"],["7.Project Documentation","Reports and records"],["8.Project Demonstration","Final demo"]].map((p,i)=>`<a class="card l ph" target="_blank" rel="noopener" href="${repo}${encodeURIComponent(p[0])}"><span class="n">${i+1}</span><span><b>${p[0].replace(/^\d\.\s*/,"")}</b><br><small>${p[1]}</small></span></a>`).join("");
+$("#hcards").innerHTML=[["crop","🌾","Crop Recommendation","Find the best crop for your soil and climate.","Get Advice →"],["irr","💧","Irrigation Planner","Know when and how much to water.","Plan Water →"],["fert","🧪","Fertilizer Advisor","Balanced nutrients, lower cost.","Check Soil →"],["yld","📈","Yield Prediction","Estimate production before sowing.","Predict →"],["wx","⛅","Weather Insights","Safe days for spraying, sowing, harvest.","Check Weather →"],["mkt","🏷️","Market Prices","Best time to sell and income estimate.","See Prices →"],["tips","💡","Smart Farming Tips","Proven practices for every stage.","Read Tips →"],["qry","📝","Ask an Expert","Send your farming question.","Ask Now →"]].map(([g,i,t,d,a])=>`<div class="card l" data-go="${g}"><div class="ic">${i}</div><h3>${t}</h3><p>${d}</p><span class="go">${a}</span></div>`).join("");
+go((location.hash||"#home").slice(1));
+</script>
+</body>
+</html>
